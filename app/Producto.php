@@ -12,7 +12,11 @@ class Producto extends Model
      *
      * @var array
      */
+    protected $table = 'productos';
+    public $timestamps = false;
+    protected $primaryKey = 'productos_id';
+    
     protected $fillable = [
-        'productos_id', 'nombre_productos', 'descripcion', 'unidades_id', 'fabricantes_id'
+        'productos_id', 'nombre_producto', 'descripcion', 'unidades_id', 'fabricantes_id'
     ];
 }

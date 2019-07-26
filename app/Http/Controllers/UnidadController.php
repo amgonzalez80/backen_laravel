@@ -3,90 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Unidad;
+//use App\Http\Requests\UnidadesStoreRequest;
 
-class UnidadController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class UnidadController extends Controller {
+
+    public function index() {
+        $unidad = Unidad::all();
+
+        if (is_null($unidad)) {
+            return response()->json("Registro no encontrado", 404);
+        }
+
+        return response()->json($unidad, 201);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function show(Request $request) {
+        $unidad = Unidad::find($request->input('unidades_id'));
+
+        if (is_null($unidad)) {
+            return response()->json("Registro no encontrado", 404);
+        }
+
+        return response()->json($unidad, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {  echo "store".$request;
-        //Instanciamos la clase Pokemons
-        $unidad = new Unidad();
-        //Declaramos el nombre con el nombre enviado en el request
-        $unidad->nombre = $request->nombre;
-        $unidad->nombre = $request->abreviatura;
-        //Guardamos el cambio en nuestro modelo
-        $unidad->save();
+    public function store(Request $request) {
+        $unidad = Unidad::create($request->all());
+        return response()->json($unidad, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        echo "Error".$id;
-        return Unidad::where('unidad_id', $id)->get();
-    } 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function update(Request $request, Unidad $unidad) {
+        $unidad->update($request->all());
+        return response()->json($unidad, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function delete(Unidad $unidad) {
+        $unidad->delete();
+        return response()->json(null, 204);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

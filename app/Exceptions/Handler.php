@@ -44,8 +44,35 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
+    public function render($request, Exception $e) {
+
+        $status = 400;
+       
+        $response = [
+            'errors' => 'Ha ocurrido un error, contacte al administrador del sistema.',
+            'status' => $status,
+            'request' => $request
+        ];
+        
+         // valida si es una exception de la instancia de HttpException
+        if ($this->isHttpException($e)) {
+            // obtiene el codigo de la excepcion
+            $status = $e->getStatusCode();
+        }
+        
+        if ($status !== 400) {
+            // Define la respuesta
+            //modo depuracion
+            if (config('app.debug')) {
+                // agregar excepciones, mensajes
+                $response['exception'] = get_class($e);
+                $response['message'] = $e->getMessage();
+                $response['trace'] = $e->getTrace();
+            }
+            // retorna el status y el json de respues
+            return response()->json($response, $status);
+        }
+        
+        return response()->json($response, $status);
     }
 }

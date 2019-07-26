@@ -15,7 +15,7 @@ class CreateProducto extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('productos_id')->comment('pk del producto');
-            $table->string('nombre_productos')->commnet('nombre del producto');
+            $table->string('nombre_producto')->commnet('nombre del producto');
             
             $table->string('descripcion')->nullable()->comment('descripcion del producto');
             

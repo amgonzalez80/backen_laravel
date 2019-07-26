@@ -8,40 +8,16 @@ class Fabricante extends Model
 {
     
     /**
-     * Atributos aignables
+     * Atributos asignables
      *
      * @var array
      */
+    protected $table = 'fabricantes';
+    protected $primaryKey = 'fabricantes_id';
+    public $timestamps = false;
+    
     protected $fillable = [
-        'fabricantes_id','nombre', 'identificacion', 'direccion',
+       'fabricantes_id', 'nombre', 'identificacion', 'direccion'
     ];
-    
-//    protected $nombre = "";
-//    protected $identificacion = "";
-//    protected $direccion = "";
-//    
-//    function getNombre() {
-//        return $this->nombre;
-//    }
-//
-//    function getIdentificacion() {
-//        return $this->identificacion;
-//    }
-//
-//    function getDireccion() {
-//        return $this->direccion;
-//    }
-//
-//    function setNombre($nombre) {
-//        $this->nombre = $nombre;
-//    }
-//
-//    function setIdentificacion($identificacion) {
-//        $this->identificacion = $identificacion;
-//    }
-//
-//    function setDireccion($direccion) {
-//        $this->direccion = $direccion;
-//    }
-    
+   
 }
